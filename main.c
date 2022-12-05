@@ -18,7 +18,7 @@ int main ()
         suma += a[i];
     }
 
-    printf("Suma wyrazów tablicy: %lf\n", suma);
+    printf("Suma wyrazow tablicy: %lf\n", suma);
 
     // pętla do modyfikacji - docelowo równoległa w OpenMP
     double suma_parallel=0.0;
@@ -32,7 +32,7 @@ int main ()
         printf("a[%2d]->W_%1d  \n",i,id_w);
     }
 
-    printf("\nSuma wyrazów tablicy równolegle (z klauzulą - ....: %lf\n",
+    printf("\nSuma wyrazow tablicy rownolegle (z klauzula - ....: %lf\n",
            suma_parallel);
 
 }
