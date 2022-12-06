@@ -10,18 +10,13 @@
 int main() {
     double a[WYMIAR];
 
-
-
     omp_set_num_threads(THREADS_AMOUNT);
-
 
 #pragma omp parallel for default(none) shared(a)
     for (int i = 0; i < WYMIAR; i++)
     {
         printf("THREADS: %d  \n", omp_get_thread_num());
     }
-
-
 
 #pragma omp parallel for default(none) shared(a)
     for (int i = 0; i < WYMIAR; i++) a[i] = 1.02 * i;
@@ -44,7 +39,7 @@ int main() {
         int id_w = omp_get_thread_num();
         // ...
         suma_parallel += a[i];
-        printf("a[%d] = %lf\n", i, a[i]);
+        //printf("a[%d] = %lf\n", i, a[i]);
         // ...
 #pragma omp ordered
 
