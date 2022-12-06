@@ -33,7 +33,7 @@ int main() {
 
     double suma_parallel = 0.0;
     // ...
-#pragma omp parallel for default(none) reduction(+:suma_parallel) firstprivate(a) ordered
+#pragma omp parallel for default(none) reduction(+:suma_parallel) firstprivate(a) ordered schedule(static)
 
     for (int i = 0; i < WYMIAR; i++) {
         int id_w = omp_get_thread_num();
@@ -46,7 +46,7 @@ int main() {
         printf("a[%2d]->W_%1d  \n", i, id_w);
     }
 
-    printf("\nSuma wyrazow tablicy rownolegle (z klauzula - ....: %lf\n", suma_parallel);
+    printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(static): %lf\n", suma_parallel);
 
     printf("Suma wyrazów tablicy: %lf\n", suma);
 
@@ -67,4 +67,7 @@ int main() {
     if (suma - suma_parallel > 1e-9 || suma - suma_parallel < -1e-9)
         printf("suma policzona nie poprawnie!\nsekwencyjnie: %lf\nrównolegle: %lf\n",suma, suma_parallel);
 
+    printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(dynamic): %lf\n", suma_parallel);
+
+    printf("Suma wyrazów tablicy: %lf\n", suma);
 }
