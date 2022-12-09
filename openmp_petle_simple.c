@@ -26,7 +26,6 @@ int main() {
     // pętla do modyfikacji - docelowo równoległa w OpenMP
 
     double suma_parallel = 0.0;
-    // ...
 #pragma omp parallel for default(none) reduction(+:suma_parallel) shared(a) ordered schedule(static)
 
     for (int i = 0; i < WYMIAR; i++) {
@@ -47,12 +46,9 @@ int main() {
     // pętla do modyfikacji - docelowo równoległa w OpenMP
     suma_parallel=0.0;
 #pragma omp parallel for schedule(dynamic) default(none) ordered shared(a) reduction(+ : suma_parallel)
-    // ...
     for(int i=0;i<WYMIAR;i++) {
         int id_w = omp_get_thread_num();
-        // ...
         suma_parallel += a[i];
-        // ...
 #pragma omp ordered
         printf("a[%2d]->W_%1d  \n",i,id_w);
     }
