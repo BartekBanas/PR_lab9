@@ -30,34 +30,28 @@ int main() {
 
     for (int i = 0; i < WYMIAR; i++) {
         int id_w = omp_get_thread_num();
-        // ...
         suma_parallel += a[i];
-        //printf("a[%d] = %lf\n", i, a[i]);
-        // ...
-#pragma omp ordered
 
+#pragma omp ordered
         printf("a[%2d]->W_%1d  \n", i, id_w);
     }
 
-    printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(static): %lf\n", suma_parallel);
-
-    printf("Suma wyrazow tablicy: %lf\n\n", suma);
+    printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(static): %lf\n\n", suma_parallel);
 
     // pętla do modyfikacji - docelowo równoległa w OpenMP
-    suma_parallel=0.0;
+    suma_parallel = 0.0;
+
 #pragma omp parallel for schedule(dynamic) default(none) ordered shared(a) reduction(+ : suma_parallel)
-    for(int i=0;i<WYMIAR;i++) {
+    for (int i = 0; i < WYMIAR; i++) {
         int id_w = omp_get_thread_num();
         suma_parallel += a[i];
+
 #pragma omp ordered
-        printf("a[%2d]->W_%1d  \n",i,id_w);
+        printf("a[%2d]->W_%1d  \n", i, id_w);
     }
 
-    //printf("\nSuma wyrazów tablicy równolegle (z klauzulą - ....: %lf\n", suma_parallel);
     if (suma - suma_parallel > 1e-9 || suma - suma_parallel < -1e-9)
-        printf("suma policzona nie poprawnie!\nsekwencyjnie: %lf\nrownolegle: %lf\n",suma, suma_parallel);
+        printf("suma policzona nie poprawnie!\nsekwencyjnie: %lf\nrownolegle: %lf\n", suma, suma_parallel);
 
     printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(dynamic): %lf\n", suma_parallel);
-
-    printf("Suma wyrazow tablicy: %lf\n\t", suma);
 }
