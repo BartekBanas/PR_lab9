@@ -13,12 +13,6 @@ int main() {
     omp_set_num_threads(THREADS_AMOUNT);
 
 #pragma omp parallel for default(none) shared(a)
-    for (int i = 0; i < WYMIAR; i++)
-    {
-        printf("THREADS: %d  \n", omp_get_thread_num());
-    }
-
-#pragma omp parallel for default(none) shared(a)
     for (int i = 0; i < WYMIAR; i++) a[i] = 1.02 * i;
 
     // pętla sekwencyjna
@@ -48,7 +42,7 @@ int main() {
 
     printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(static): %lf\n", suma_parallel);
 
-    printf("Suma wyrazów tablicy: %lf\n", suma);
+    printf("Suma wyrazow tablicy: %lf\n\n", suma);
 
     // pętla do modyfikacji - docelowo równoległa w OpenMP
     suma_parallel=0.0;
@@ -65,9 +59,9 @@ int main() {
 
     //printf("\nSuma wyrazów tablicy równolegle (z klauzulą - ....: %lf\n", suma_parallel);
     if (suma - suma_parallel > 1e-9 || suma - suma_parallel < -1e-9)
-        printf("suma policzona nie poprawnie!\nsekwencyjnie: %lf\nrównolegle: %lf\n",suma, suma_parallel);
+        printf("suma policzona nie poprawnie!\nsekwencyjnie: %lf\nrownolegle: %lf\n",suma, suma_parallel);
 
     printf("\nSuma wyrazow tablicy rownolegle (z klauzula - schedule(dynamic): %lf\n", suma_parallel);
 
-    printf("Suma wyrazów tablicy: %lf\n", suma);
+    printf("Suma wyrazow tablicy: %lf\n\t", suma);
 }
