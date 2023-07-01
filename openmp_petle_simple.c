@@ -1,11 +1,8 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 #include <omp.h>
 
 #define WYMIAR 18
 #define THREADS_AMOUNT 4
-
 
 int main() {
     double a[WYMIAR];
